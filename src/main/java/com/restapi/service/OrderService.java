@@ -9,6 +9,7 @@ import com.restapi.response.OrderResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class OrderService {
     private OrderDto orderDto;
     @Autowired
     private OrderStatusRepository orderStatusRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,6 +33,8 @@ public class OrderService {
 
     @Autowired
     private ArtWorkRepository artWorkRepository;
+
+
     public List<OrderResponse> getAllOrders() {
         List<Order> orderList = orderRepository.findAll();
         return orderDto.mapToOrderResponse(orderList);
@@ -40,7 +44,7 @@ public class OrderService {
     public List<OrderResponse> getUserOrders(Long userId) {
         List<Order> orderList = orderRepository.findUserOrder(userId).orElseThrow(() -> new ResourceNotFoundException("userId", "UserId", userId));
         //System.out.println(orderList.size());
-        return orderDto.mapToOrderResponse(orderList);
+        return orderDto.mapToOrder(orderList, userId);
     }
 
 
@@ -62,45 +66,47 @@ public class OrderService {
 
 
     //userId,addressId,cartId,statusId
-    public List<OrderResponse> placeOrder(Long userId, Long addressId) {
-        AppUser appUser = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", userId));
+    public List<OrderResponse> placeOrder(OrderRequest orderRequest) {
+        AppUser appUser = userRepository.findById(orderRequest.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", orderRequest.getUserId()));
 
-        Address address = addressRepository.findById(addressId)
-                .orElseThrow(() -> new ResourceNotFoundException("addressId", "addressId", addressId));
+        Address address = addressRepository.findById(orderRequest.getAddressId())
+                .orElseThrow(() -> new ResourceNotFoundException("addressId", "addressId", orderRequest.getAddressId()));
 
-        List<Cart> cartList = cartRepository.findUserCart(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", userId));
+        List<Cart> cartList = cartRepository.findUserCart(orderRequest.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", orderRequest.getUserId()));
 
         OrderStatus orderStatus = orderStatusRepository.findById(1L)
                 .orElseThrow(() -> new ResourceNotFoundException("statusId", "statusId", 1));//1l long datatype
+
+//        ArtWork artWork = artWorkRepository.findById(orderRequest.getArtWorkId())
+//                .orElseThrow(() -> new ResourceNotFoundException("artWorkId", "artWorkId", orderRequest.getArtWorkId()));
+
 
         Order order = new Order();
         order.setAppUser(appUser);
         order.setAddress(address);
         order.setOrderStatus(orderStatus);
 
+        order = orderRepository.save(order);
+
 
         for (Cart cart : cartList) {
             OrderedArtWork orderedArtWork = new OrderedArtWork();
+
             orderedArtWork.setTitle(cart.getArtWork().getTitle());
             orderedArtWork.setDescription(cart.getArtWork().getDescription());
             orderedArtWork.setPrice(cart.getArtWork().getPrice());
             orderedArtWork.setCount(cart.getCount());
-
+            orderedArtWork.setOrder(order);
             orderArtWorkRepository.save(orderedArtWork);
             cartRepository.delete(cart);//after place order cart should be removed
         }
         List<OrderedArtWork> orderedArtWorks = orderArtWorkRepository.findAll();
         order.setOrderedArtWorkList(orderedArtWorks);
-        orderRepository.save(order);
-        return getUserOrders(userId);
+        return getUserOrders(orderRequest.getUserId());
 
 
     }
 
-    public List<OrderResponse> deleteOrder(Long userId) {
-        orderRepository.deleteById(userId);
-        return getAllOrders();
-    }
 }

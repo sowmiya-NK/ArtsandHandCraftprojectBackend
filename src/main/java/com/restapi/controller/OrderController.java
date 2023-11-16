@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,17 +32,12 @@ public class OrderController {
     }
 
     @PostMapping
-    private ResponseEntity<APIResponse> placeOrder(@RequestBody OrderRequest orderRequest) {
+    private ResponseEntity<APIResponse> placeOrder(@Valid  @RequestBody OrderRequest orderRequest) {
         apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(orderService.placeOrder(orderRequest.getUserId(), orderRequest.getAddressId()));
+        apiResponse.setData(orderService.placeOrder(orderRequest));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}")
-    private ResponseEntity<APIResponse> deleteOrder(@PathVariable Long userId) {
-        apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(orderService.deleteOrder(userId));
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+
 
 }

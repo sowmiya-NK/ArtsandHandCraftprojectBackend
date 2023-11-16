@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -52,7 +53,7 @@ public class AdminOrderController {
 
     //update status
     @PutMapping("/status")
-    private  ResponseEntity<APIResponse> updateOrderStatus(@RequestBody OrderStatusRequest orderStatusRequest){
+    private  ResponseEntity<APIResponse> updateOrderStatus(@Valid  @RequestBody OrderStatusRequest orderStatusRequest){
         List<OrderResponse> orderResponseList=orderService.updateOrderStatus(orderStatusRequest.getOrderId(),orderStatusRequest.getStatusId());
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(orderResponseList);

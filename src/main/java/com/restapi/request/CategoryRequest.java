@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @ToString
 public class CategoryRequest {
     private Long id;
+
     @NotEmpty
     @Size(min = 3, message = "categoryName should have at least 3 characters")
     private String title;

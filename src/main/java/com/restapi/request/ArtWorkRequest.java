@@ -12,15 +12,20 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class ArtWorkRequest {
     private Long id;
-    @NotEmpty
-    @Size(min = 3, message = "title should have at least 3 characters")
-    private  String title;
 
-    @NotEmpty
-    @Size(min = 3, message = "description should have at least 3 characters")
-    private  String description;
+    @NotEmpty(message = "Title cannot be empty")
+    @Size(min = 3, message = "Title should have at least 3 characters")
+    private String title;
 
-    private  Double price;
-    private  byte[] photo;
-   private Long categoryId;
+    @NotEmpty(message = "Description cannot be empty")
+    @Size(min = 3, message = "Description should have at least 3 characters")
+    private String description;
+
+    @NotNull(message = "Price cannot be null")
+    private Double price;
+
+    private byte[] photo;
+
+    @NotNull(message = "Category ID cannot be null")
+    private Long categoryId;
 }

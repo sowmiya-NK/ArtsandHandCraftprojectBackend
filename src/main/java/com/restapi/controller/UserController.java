@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping
-    private ResponseEntity<APIResponse> createAddress(@RequestBody AddressRequest addressRequest){
+    private ResponseEntity<APIResponse> createAddress( @RequestBody AddressRequest addressRequest){
         AddressResponse addressResponse=addressService.createAddress(addressRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(addressResponse);

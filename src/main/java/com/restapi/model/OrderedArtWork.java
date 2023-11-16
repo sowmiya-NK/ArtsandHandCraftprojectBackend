@@ -38,7 +38,7 @@ public class OrderedArtWork {
     private Integer count=1;
 
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id",referencedColumnName = "id")
     private  Order order;

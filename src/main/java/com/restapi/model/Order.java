@@ -29,6 +29,7 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderedArtWork> orderedArtWorkList = new ArrayList<>();
 
@@ -36,6 +37,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private OrderStatus orderStatus;
+
+
 
     @CreationTimestamp
     @Column(updatable = false)
