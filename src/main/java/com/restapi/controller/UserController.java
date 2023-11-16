@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 
 @RestController
 @RolesAllowed(Role.USER)
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping
-    private ResponseEntity<APIResponse> updateAddress(@RequestBody AddressRequest addressRequest){
+    private ResponseEntity<APIResponse> updateAddress( @RequestBody AddressRequest addressRequest){
         AddressResponse addressResponse=addressService.updateAddress(addressRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(addressResponse);

@@ -28,17 +28,17 @@ public class AppUser {
 
     @Column(name = "username", unique = true, nullable = false, length = 100)
     @NotEmpty
-    @Size(min = 2, message = "Username should have at least 2 characters")
+    @Size(min = 3, message = "Username should have at least 3 characters")
     private String username;
 
     @Column(nullable = false, length = 100)
     @NotEmpty
-    @Size(min = 2, message = "Password should have at least 2 characters")
+    @Size(min = 8, message = "Password should have at least 8 characters")
     private String password;
 
     @Column(nullable = false, length = 100)
     @NotEmpty
-    @Size(min = 2, message = "Name should have at least 2 characters")
+    @Size(min = 3, message = "Name should have at least 3 characters")
     private String name;
 
     @JsonIgnore

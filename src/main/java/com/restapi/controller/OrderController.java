@@ -30,11 +30,18 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-
     @PostMapping
     private ResponseEntity<APIResponse> placeOrder(@RequestBody OrderRequest orderRequest) {
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(orderService.placeOrder(orderRequest.getUserId(), orderRequest.getAddressId()));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{userId}")
+    private ResponseEntity<APIResponse> deleteOrder(@PathVariable Long userId) {
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setData(orderService.deleteOrder(userId));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }

@@ -8,7 +8,10 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,22 +23,27 @@ public class Address {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false,length = 100)
-    private String  street;
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
+    @NotEmpty
+    private String street;
+
+    @Column(nullable = false, length = 100)
     private String city;
-    @Column(nullable = false,length = 100)
+
+    @Column(nullable = false, length = 100)
     private String State;
-    @Column(nullable = false,length = 100)
+
+    @Column(nullable = false, length = 100)
     private Integer zipcode;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="user_id",referencedColumnName = "id")
-    private  AppUser appUser;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private AppUser appUser;
 
-    @OneToOne(mappedBy = "address")
-    private  Order order;
+    @JsonIgnore
+    @OneToMany(mappedBy = "address")
+    private List<Order> orderList;
 
     @CreationTimestamp
     @Column(updatable = false)

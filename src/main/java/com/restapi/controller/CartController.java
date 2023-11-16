@@ -3,6 +3,7 @@ package com.restapi.controller;
 import com.restapi.model.Cart;
 import com.restapi.model.Role;
 import com.restapi.request.CartRequest;
+import com.restapi.response.CartResponse;
 import com.restapi.response.common.APIResponse;
 import com.restapi.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class CartController {
 
     @PostMapping
     private ResponseEntity<APIResponse> addToCart(@RequestBody CartRequest cartRequest) {
-        List<Cart> cartRequestList = cartService.addToCart(cartRequest);
+        List<CartResponse> cartResponseList = cartService.addToCart(cartRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(cartRequestList);
+        apiResponse.setData(cartResponseList);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 
     }
@@ -39,10 +40,10 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    private ResponseEntity<APIResponse> getUserCart(@PathVariable Long userId){
+    private ResponseEntity<APIResponse> getUserCart(@PathVariable Long userId) {
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(cartService.findUserCart(userId));
-        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
 

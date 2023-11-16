@@ -1,5 +1,6 @@
 package com.restapi.service;
 
+import com.restapi.dto.CartDto;
 import com.restapi.exception.common.ResourceNotFoundException;
 import com.restapi.model.AppUser;
 import com.restapi.model.ArtWork;
@@ -8,6 +9,7 @@ import com.restapi.repository.ArtWorkRepository;
 import com.restapi.repository.CartRepository;
 import com.restapi.repository.UserRepository;
 import com.restapi.request.CartRequest;
+import com.restapi.response.CartResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,11 @@ public class CartService {
     private UserRepository userRepository;
     @Autowired
     private ArtWorkRepository artWorkRepository;
+    @Autowired
+    private CartDto cartDto;
 
     @Transactional
-    public List<Cart> addToCart(CartRequest cartRequest) {
+    public List<CartResponse> addToCart(CartRequest cartRequest) {
         AppUser appUser = userRepository.findById(cartRequest.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", cartRequest.getUserId()));//userid
 
@@ -63,12 +67,12 @@ public class CartService {
         return findUserCart(cartRequest.getUserId());
     }
 
-    public List<Cart> findUserCart(Long userId) {
+    public List<CartResponse> findUserCart(Long userId) {
         List<Cart> cart=cartRepository.findUserCart(userId).orElseThrow(()->new ResourceNotFoundException("userId","userId",userId));
-        return  cart;
+        return  cartDto.mapToCart(cart);
     }
 
-    public List<Cart> deleteArtWorkFromCart(Long userId, Long artWorkId) {
+    public List<CartResponse> deleteArtWorkFromCart(Long userId, Long artWorkId) {
         return findUserCart(userId);
     }
 }

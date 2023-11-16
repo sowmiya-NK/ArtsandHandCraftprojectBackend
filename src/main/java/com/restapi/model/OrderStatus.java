@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,11 +20,13 @@ public class OrderStatus {
     @Id
     @GeneratedValue
     private long id;
+
     @Column(nullable = false,length = 100)
+    @NotEmpty
     private  String status;
 
-    @OneToOne(mappedBy = "orderStatus")
-    private Order order;
+    @OneToMany(mappedBy = "orderStatus")
+    private List<Order> orderList;
 
     @CreationTimestamp
     @Column(updatable = false)

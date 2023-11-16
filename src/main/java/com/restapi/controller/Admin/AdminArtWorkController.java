@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class AdminArtWorkController {
     }
 
     @PostMapping
-    private ResponseEntity<APIResponse> createArtWork(@RequestBody ArtWorkRequest artWorkRequest){
+    private ResponseEntity<APIResponse> createArtWork(@Valid @RequestBody ArtWorkRequest artWorkRequest){
         List<ArtWork> artWorkList=artWorkService.createArtWork(artWorkRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(artWorkList);
@@ -42,7 +43,7 @@ public class AdminArtWorkController {
     }
 
     @PutMapping
-    private ResponseEntity<APIResponse> updateArtWork(@RequestBody ArtWorkRequest artWorkRequest){
+    private ResponseEntity<APIResponse> updateArtWork(@Valid @RequestBody ArtWorkRequest artWorkRequest){
         List<ArtWork> artWorkList=artWorkService.updateArtWork(artWorkRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(artWorkList);

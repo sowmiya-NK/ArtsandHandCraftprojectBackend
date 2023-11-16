@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class AdminCategoryController {
     }
 
     @PostMapping
-    private ResponseEntity<APIResponse> createCategory(@RequestBody CategoryRequest categoryRequest) {
+    private ResponseEntity<APIResponse> createCategory(@Valid  @RequestBody CategoryRequest categoryRequest) {
         CategoryResponse categoryResponse = categoryService.createCategory(categoryRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(categoryResponse.getCategories());
@@ -41,7 +42,7 @@ public class AdminCategoryController {
     }
 
     @PutMapping
-    private ResponseEntity<APIResponse> updateCategory(@RequestBody CategoryRequest categoryRequest) {
+    private ResponseEntity<APIResponse> updateCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(categoryResponse.getCategories());

@@ -14,9 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponse {
-    private  Long id;
+    private Long id;
     private List<OrderedArtWork> orderedArtWorkList;
-    private  Long userId;
+    private Long userId;
     private String username;
     private Address address;
     private String orderStatus;

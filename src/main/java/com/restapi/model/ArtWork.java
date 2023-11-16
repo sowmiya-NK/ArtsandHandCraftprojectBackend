@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +23,21 @@ public class ArtWork {
     @Id
     @GeneratedValue
     private long id;
+
     @Column(nullable = false,length = 100)
     private  String title;
+
     @Column(nullable = false,length = 100)
     private  String description;
+
     @Column(nullable = false,length = 100)
     private  Double price;
+
+    @JsonIgnore
     //it not show in table
     @Transient
     private  Integer count;
+
     //lob for image,lombok
     @Lob
     @Column(name="Image",columnDefinition = "BLOB")

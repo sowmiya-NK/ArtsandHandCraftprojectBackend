@@ -21,21 +21,19 @@ public class Order {
     private long id;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderedArtWork> orderedArtWorkList = new ArrayList<>();
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private OrderStatus orderStatus;
 

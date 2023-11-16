@@ -29,6 +29,8 @@ public class OrderService {
     @Autowired
     private OrderArtWorkRepository orderArtWorkRepository;
 
+    @Autowired
+    private ArtWorkRepository artWorkRepository;
     public List<OrderResponse> getAllOrders() {
         List<Order> orderList = orderRepository.findAll();
         return orderDto.mapToOrderResponse(orderList);
@@ -37,6 +39,7 @@ public class OrderService {
 
     public List<OrderResponse> getUserOrders(Long userId) {
         List<Order> orderList = orderRepository.findUserOrder(userId).orElseThrow(() -> new ResourceNotFoundException("userId", "UserId", userId));
+        //System.out.println(orderList.size());
         return orderDto.mapToOrderResponse(orderList);
     }
 
@@ -76,7 +79,7 @@ public class OrderService {
         order.setAppUser(appUser);
         order.setAddress(address);
         order.setOrderStatus(orderStatus);
-        order = orderRepository.save(order);
+
 
         for (Cart cart : cartList) {
             OrderedArtWork orderedArtWork = new OrderedArtWork();
@@ -88,8 +91,16 @@ public class OrderService {
             orderArtWorkRepository.save(orderedArtWork);
             cartRepository.delete(cart);//after place order cart should be removed
         }
+        List<OrderedArtWork> orderedArtWorks = orderArtWorkRepository.findAll();
+        order.setOrderedArtWorkList(orderedArtWorks);
+        orderRepository.save(order);
         return getUserOrders(userId);
 
 
+    }
+
+    public List<OrderResponse> deleteOrder(Long userId) {
+        orderRepository.deleteById(userId);
+        return getAllOrders();
     }
 }
