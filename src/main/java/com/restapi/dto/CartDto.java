@@ -19,6 +19,7 @@ public class CartDto {
             cartResponse.setUserId(cart1.getAppUser().getId());
             cartResponse.setTitle(cart1.getArtWork().getTitle());
             cartResponse.setPrice(cart1.getArtWork().getPrice());
+            cartResponse.setArtworkId(cart1.getArtWork().getId());
             cartResponseList.add(cartResponse);
 
         }

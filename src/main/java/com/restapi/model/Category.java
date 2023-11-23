@@ -28,7 +28,7 @@ public class Category {
     private  String title;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ArtWork> artworklist=new ArrayList<>();
 
     @CreationTimestamp

@@ -50,6 +50,7 @@ public class UserService {
             throw new InvalidUserException("Invalid password");
         }
 
+
         return authDto.mapToAuthResponse(appUser);
     }
 

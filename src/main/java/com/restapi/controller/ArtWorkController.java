@@ -15,7 +15,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ArtWork")
+@RequestMapping("/api/artWork")
 @RolesAllowed(Role.USER)
 public class ArtWorkController {
     @Autowired

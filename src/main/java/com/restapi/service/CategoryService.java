@@ -38,6 +38,7 @@ public class CategoryService {
     }
 
     public CategoryResponse deleteById(Integer id) {
+        System.out.println(Long.valueOf(id));
         categoryRepository.deleteById(Long.valueOf(id));
         return findAll();
     }

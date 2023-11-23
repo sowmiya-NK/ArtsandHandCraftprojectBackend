@@ -9,9 +9,11 @@ import com.restapi.repository.CategoryRepository;
 import com.restapi.request.ArtWorkRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 
 @Service
 public class ArtWorkService {

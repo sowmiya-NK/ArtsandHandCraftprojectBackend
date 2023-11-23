@@ -19,5 +19,6 @@ public class CartResponse {
    private Long userId;
    private String title;
    private  Double price;
+   private  Long artworkId;
 
 }

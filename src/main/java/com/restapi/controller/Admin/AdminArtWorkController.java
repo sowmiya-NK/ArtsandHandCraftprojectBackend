@@ -14,6 +14,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin/artWork")
 @RolesAllowed(Role.ADMIN)

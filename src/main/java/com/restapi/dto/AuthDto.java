@@ -12,7 +12,8 @@ public class AuthDto {
         AppUser appUser = new AppUser();
         appUser.setUsername(user.getUsername());
         appUser.setName(user.getName());
-        appUser.setPassword(user.getPassword());
+      appUser.setPassword(user.getPassword());
+
         return appUser;
     }
 
@@ -20,8 +21,11 @@ public class AuthDto {
     public AuthResponse mapToAuthResponse(AppUser appUser) {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setId(appUser.getId());
-        authResponse.setName(appUser.getName());
+        authResponse.setName(appUser.getName())     ;
         authResponse.setUsername(appUser.getUsername());
+        authResponse.setRole(appUser.getRoles().getName());
+
+
         return authResponse;
     }
 }

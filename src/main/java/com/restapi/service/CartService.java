@@ -73,6 +73,7 @@ public class CartService {
     }
 
     public List<CartResponse> deleteArtWorkFromCart(Long userId, Long artWorkId) {
+        cartRepository.deleteById(artWorkId);
         return findUserCart(userId);
     }
 }

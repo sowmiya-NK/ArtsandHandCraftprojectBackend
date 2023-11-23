@@ -49,7 +49,7 @@ public class ArtWork {
     private  Category category;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "artWork")
+    @OneToMany(mappedBy = "artWork",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Cart> cartList=new ArrayList<>();
 
 
