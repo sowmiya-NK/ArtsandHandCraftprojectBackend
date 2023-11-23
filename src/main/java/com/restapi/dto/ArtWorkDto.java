@@ -2,12 +2,26 @@ package com.restapi.dto;
 
 import com.restapi.model.ArtWork;
 import com.restapi.request.ArtWorkRequest;
+import com.restapi.response.ArtWorkResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ArtWorkDto {
+
+    public static List<ArtWorkResponse> mapToProduct(List<ArtWork> artWorks) {
+        List<ArtWorkResponse> artWorkResponses=new ArrayList<>();
+        for(ArtWork artWork:artWorks){
+            ArtWorkResponse artWorkResponse=new ArtWorkResponse();
+
+            artWorkResponse.setId(artWork.getId());
+            artWorkResponses.add(artWorkResponse);
+        }
+        return  artWorkResponses;
+
+    }
 
     public ArtWork mapToArtWork(ArtWorkRequest artWorkRequest) {
         ArtWork artWork = new ArtWork();
