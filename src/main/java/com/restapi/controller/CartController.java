@@ -27,11 +27,12 @@ public class CartController {
 
     @PostMapping
     private ResponseEntity<APIResponse> addToCart(@Valid  @RequestBody CartRequest cartRequest) {
+        System.out.println(cartRequest.getUserId());
+        System.out.println(cartRequest.getArtWorkId());
         List<CartResponse> cartResponseList = cartService.addToCart(cartRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(cartResponseList);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-
     }
 
     @DeleteMapping("/{userId}/{artWorkId}")
