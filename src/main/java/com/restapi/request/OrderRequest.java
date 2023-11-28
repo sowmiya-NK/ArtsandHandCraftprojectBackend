@@ -20,4 +20,5 @@ public class OrderRequest {
 
     @NotNull(message = "Artwork ID cannot be null")
     private Long artWorkId;
+    private Long cartId;
 }

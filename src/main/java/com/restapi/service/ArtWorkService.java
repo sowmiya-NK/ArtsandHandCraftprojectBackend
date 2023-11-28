@@ -44,7 +44,7 @@ public class ArtWorkService {
     public List<ArtWork> updateArtWork(ArtWorkRequest artWorkRequest) {
         ArtWork artWork = artWorkDto.mapToArtWork(artWorkRequest);
         Category category = categoryRepository.findById(artWorkRequest.getCategoryId())
-                .orElseThrow(() -> new ResourceNotFoundException("CategoryId", "CateoryId0", artWorkRequest.getCategoryId()));
+                .orElseThrow(() -> new ResourceNotFoundException("CategoryId", "CateoryId", artWorkRequest.getCategoryId()));
         artWork.setCategory(category);//it is foreign key to set category id
         artWorkRepository.save(artWork);
         return findAll();
@@ -58,5 +58,11 @@ public class ArtWorkService {
     public List<ArtWorkResponse> findProductId(Long id) {
         List<ArtWork> artWorks=artWorkRepository.findProductById(id).orElseThrow(()->new ResourceNotFoundException("productId","productId",id));
         return  ArtWorkDto.mapToProduct(artWorks);
+    }
+
+
+    public ArtWork findById(Long id) {
+        ArtWork artWork=artWorkRepository.findById(id).get();
+        return artWork;
     }
 }

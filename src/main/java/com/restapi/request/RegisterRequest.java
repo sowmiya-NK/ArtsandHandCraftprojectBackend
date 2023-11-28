@@ -17,17 +17,19 @@ import javax.validation.constraints.Size;
 public class
 RegisterRequest {
 
-    @NotEmpty(message = "Email cannot be empty")
-    @Email(message = "Invalid email format")
+//    @NotEmpty(message = "Email cannot be empty")
+//    @Email(message = "Invalid email format")
     private String username;
 
-    @NotEmpty(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password should have at least 8 characters")
+//    @NotEmpty(message = "Password cannot be empty")
+//    @Size(min = 8, message = "Password should have at least 8 characters")
 
     private String password;
 
-    @NotEmpty
-    @Size(min = 2, message = "Name should have at least 2 characters")
+//    @NotEmpty
+//    @Size(min = 2, message = "Name should have at least 2 characters")
     private String name;
+
+
 
 }

@@ -37,6 +37,7 @@ public class OrderedArtWork {
 
     private Integer count=1;
 
+    private Integer Total;
 
     //@JsonIgnore
     @ManyToOne

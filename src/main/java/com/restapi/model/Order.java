@@ -20,6 +20,7 @@ public class Order {
     @GeneratedValue
     private long id;
 
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -40,7 +41,9 @@ public class Order {
 
 
 
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
 }

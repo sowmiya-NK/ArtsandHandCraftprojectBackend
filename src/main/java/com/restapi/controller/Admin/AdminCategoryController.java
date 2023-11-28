@@ -33,6 +33,13 @@ public class AdminCategoryController {
         apiResponse.setData(categoryResponse.getCategories());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    private ResponseEntity<APIResponse> getCategoriesById(@PathVariable  Long id) {
+        Category category = categoryService.findById(id);
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setData(category);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 
     @PostMapping
     private ResponseEntity<APIResponse> createCategory(@Valid  @RequestBody CategoryRequest categoryRequest) {
@@ -42,7 +49,7 @@ public class AdminCategoryController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     private ResponseEntity<APIResponse> updateCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryRequest);
         apiResponse.setStatus(HttpStatus.OK.value());

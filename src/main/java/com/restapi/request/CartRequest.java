@@ -22,4 +22,6 @@ public class CartRequest {
 
     @NotNull(message = "User ID cannot be null")
     private Long userId;
+    private  Integer total;
+
 }

@@ -44,6 +44,7 @@ public class CartService {
             for (Cart cart : cartOptional.get()) {
                 if ((cart.getArtWork().getId()) == cartRequest.getArtWorkId()) {
                     cart.setCount(cartRequest.getCount());//set count
+                    cart.setTotal(cartRequest.getTotal());
                     cartRepository.save(cart);
                     ispresent = true;
 
@@ -55,6 +56,7 @@ public class CartService {
                 cart.setAppUser(appUser);
                 cart.setArtWork(artWork);
                 cart.setCount(cartRequest.getCount());
+                cart.setTotal(cartRequest.getTotal());
                 cartRepository.save(cart);
             }
         } else {
@@ -62,6 +64,7 @@ public class CartService {
             cart.setAppUser(appUser);
             cart.setArtWork(artWork);
             cart.setCount(cartRequest.getCount());
+            cart.setTotal(cartRequest.getTotal());
             cartRepository.save(cart);
         }
         return findUserCart(cartRequest.getUserId());
@@ -75,5 +78,47 @@ public class CartService {
     public List<CartResponse> deleteArtWorkFromCart(Long userId, Long artWorkId) {
         cartRepository.deleteById(artWorkId);
         return findUserCart(userId);
+    }
+
+
+    public List<CartResponse> updateCart(CartRequest cartRequest) {
+        AppUser appUser = userRepository.findById(cartRequest.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("userId", "userId", cartRequest.getUserId()));//userid
+
+        ArtWork artWork = artWorkRepository.findById(cartRequest.getArtWorkId())
+                .orElseThrow(() -> new ResourceNotFoundException("artworkId", "artworkId", cartRequest.getArtWorkId()));//productid
+
+        Optional<List<Cart>> cartOptional = cartRepository.findUserCart(cartRequest.getUserId());//for query
+
+        //checking cart present
+        if (cartOptional.isPresent()) {
+            boolean ispresent = false;
+            for (Cart cart : cartOptional.get()) {
+                if ((cart.getArtWork().getId()) == cartRequest.getArtWorkId()) {
+                    cart.setCount(cartRequest.getCount());//set count
+                    cart.setTotal(cartRequest.getTotal());
+                    cartRepository.save(cart);
+                    ispresent = true;
+
+                }
+            }
+            //cart not present
+            if (!ispresent) {
+                Cart cart = new Cart();
+                cart.setAppUser(appUser);
+                cart.setArtWork(artWork);
+                cart.setCount(cartRequest.getCount());
+                cart.setTotal(cartRequest.getTotal());
+                cartRepository.save(cart);
+            }
+        } else {
+            Cart cart = new Cart();
+            cart.setAppUser(appUser);
+            cart.setArtWork(artWork);
+            cart.setCount(cartRequest.getCount());
+            cart.setTotal(cartRequest.getTotal());
+            cartRepository.save(cart);
+        }
+        return findUserCart(cartRequest.getUserId());
     }
 }

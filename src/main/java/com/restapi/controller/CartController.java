@@ -49,5 +49,14 @@ public class CartController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @PutMapping
+    private ResponseEntity<APIResponse> updateCart(@Valid  @RequestBody CartRequest cartRequest) {
+        List<CartResponse> cartResponseList = cartService.updateCart(cartRequest);
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setData(cartResponseList);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+
 
 }

@@ -21,6 +21,7 @@ public class CartDto {
             cartResponse.setPrice(cart1.getArtWork().getPrice());
             cartResponse.setArtworkId(cart1.getArtWork().getId());
             cartResponse.setCount(cart1.getCount());
+            cartResponse.setTotal(cart1.getTotal());
             cartResponseList.add(cartResponse);
 
         }

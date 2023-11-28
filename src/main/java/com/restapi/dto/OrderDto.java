@@ -27,6 +27,7 @@ public class OrderDto {
             orderResponse.setUsername(order.getAppUser().getUsername());
             orderResponse.setOrderStatus(order.getOrderStatus().getStatus());
             orderResponse.setAddress(order.getAddress());
+            orderResponse.setTotal(orderResponse.getTotal());
             List<OrderedArtWork> orderedArtWorks = orderArtWorkRepository.findAll();
             orderResponse.setOrderedArtWorkList(orderedArtWorks);
             orderResponseList.add(orderResponse);
@@ -47,6 +48,7 @@ public class OrderDto {
                 orderResponse.setUserId(order.getAppUser().getId());
                 orderResponse.setUsername(order.getAppUser().getUsername());
                 orderResponse.setOrderStatus(order.getOrderStatus().getStatus());
+
                 orderResponse.setAddress(order.getAddress());
 
                 // Assuming you want to get ordered artworks specific to this order

@@ -21,5 +21,6 @@ public class CartResponse {
    private  Double price;
    private  Long artworkId;
    private  Integer count;
+   private  Integer total;
 
 }

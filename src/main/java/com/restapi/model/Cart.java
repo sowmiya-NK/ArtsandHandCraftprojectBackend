@@ -20,6 +20,8 @@ public class Cart {
     @GeneratedValue
     private long id;
     private Integer count;
+    private Integer total;
+
 
     @JsonIgnore
     @ManyToOne

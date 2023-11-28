@@ -20,5 +20,6 @@ public class OrderResponse {
     private String username;
     private Address address;
     private String orderStatus;
+    private  Integer total;
 
 }
